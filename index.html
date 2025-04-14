@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="HUMOTO Project Page">
+  <meta property="og:title" content="HUMOTO Project Page"/>
+  <meta property="og:description" content="Overall information about HUMOTO with visual renderings."/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/humoto/teaser.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="HUMOTO Project Page">
+  <meta name="twitter:description" content="Overall information about HUMOTO with visual renderings.">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/humoto/teaser.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Human-Object Interaction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>HUMOTO</title>
+  <link rel="icon" type="image/x-icon" href="static/humoto/geometry.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">HUMOTO: A 4D Dataset of Mocap Human Object Interactions</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                Anonymous Author</span>
+                  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+
+      <img src="static/humoto/teaser.png" alt="Teaser"/>  
+      <h2 class="subtitle has-text-left">
+        <strong>Overview of the HUMOTO dataset.</strong> Humoto contains 4D data of human-object interactions, including 3D human poses and object meshes, and their temporal evolution. It features 736 sequences (7,875 seconds at 30fps), and 72 articulated parts.
+      </h2>
+    
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Overview</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+       
+      <div class="item">
+        <!-- Your image here -->
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/chair_pickup.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/write_on_book.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/basket_from_top_to_ground.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/fruit_to_side_table.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/walk_with_basket.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/use_lint_roller.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      
+
+      <div class="item">
+        <!-- Your image here -->
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/straight_lamp_web.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/clean_plate.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/vid/mixing_with_hand_web.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+<!-- Experiment 1 -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Application: Human-Object Interaction and Motion Generation</h2>
+      <h2> 
+          <font size="+1">
+            We test MotionGPT with HUMOTO prompts. It appears that the model can generate a few reasonable motion based on the more abstract description, but fails to faithfully generate more fine-grained motions, compared to the captured ground truth HUMOTO motions. 
+          </font>
+          <br>
+          <br>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <video width="36%" height="100%" source="" src="static/humoto/motion_gen/spoon-s.mp4" type="video/mp4" loop="true" autoplay="autoplay"  controls muted></video>
+        <video width="36%" height="100%" source="" src="static/humoto/motion_gen/spoon-l.mp4" type="video/mp4" loop="true" autoplay="autoplay"  controls muted></video>
+        <video width="26.3%" height="100%" source="" src="static/humoto/motion_gen/spoon.mp4" type="video/mp4" loop="true" autoplay="autoplay"  controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          <strong>MotionGPT Generated result based on short script (Left) and long script (Mid). Ground truth motion (Right) from HUMOTO. </strong> <br>
+          <br>
+          PROMPT: <i>The subject scoops ingredients using the spoon with left the hand from the deep plate. The subject adds ingredients with the left hand using the spoon to the mixing bowl. The subject mixes the content of the mixing bowl with the left hand.</i>
+        </font>
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+
+<!-- Experiment 2 -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Application: Robotics and Embodied AI.</h2>
+      <h2> 
+          <font size="+1">
+            We use PyBullet to compare HUMOTO with Parahome and BEHAVE in the simulation settings. <br>
+            We calculate displacement by initializing the simulation with objects at their positions in the input frame, then running the physical simulation forward for 35 frames. The displacement value represents the mean Euclidean distance between each object's initial position and its final position after simulation, averaged across all objects in the scene.
+          </font>
+          <br>
+          <br>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/00000000.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/00000160.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/00000210.gif" type="images"></img>   
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Visualization of HUMOTO in the simulater. The entire sequence has displacement 1.1cm.
+        </font>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/p00000000.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/p00000050.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/p00000090.gif" type="images"></img>   
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Visualization of ParaHome in the simulater. The entire sequence has displacement 28.3cm.
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/ht00000000.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/ht00000190.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/ht00000220.gif" type="images"></img>   
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Visualization of HUMOTO in the simulater. The entire sequence has displacement 2.2cm.
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/bt00000000.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/bt00000050.gif" type="images"></img>
+        <img width="33.3%" height="20%" source="" src="static/humoto/sim/bt00000090.gif" type="images"></img>   
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Visualization of BEHAVE in the simulater. The entire sequence has displacement 10.2cm.
+        </font>
+      </h2>
+      
+  </div>
+</div>
+</section>
+<!-- End youtube video -->
+
+
+<!-- Experiment 3 -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Application : Human motion and pose estimation</h2>
+      <h2> 
+          <font size="+1">
+          We render our 4D data to realistic videos and compare two state-of-the-art human pose estimation and tracking methods, TRAM and 4D-Humans, on our sequences.
+          <br>
+          In each sequence, the colored mesh represents the estimated human pose from the algorithm, and the white skeleton represents the ground truth human pose from HUMOTO. The estimated human pose is projected onto the image plane and overlaid on the video frame. All results are presented in the TRAM, 4D-Humans, and HUMOTO input order.
+          </font>
+          <br>
+          <br>
+      </h2>
+      
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/tram-morning2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/phalp-morning2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/gt-morning2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Comparison on the <i>"tasting coffee while looking into the laptop"</i> task. TRAM has a significant error in the human position estimation, where almost the entire human is out of camera view.
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/tram-organize1.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/phalp-organize1.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/gt-organize1.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Comparison on the two person <i>"organizing and mixing the ingredients"</i> task. Both methods have an unstable estimation of Sophies' occluded foot position.
+        </font>
+      </h2>
+
+      
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/tram-organize4.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/phalp-organize4.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/gt-organize4.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Comparison on the <i>"organizing the kitchen counter"</i> task. TRAM repeatedly fails to estimate the correct number of human in the scene. 4D-Humans has a significant rotation error in the hip joint.
+        </font>
+      </h2>
+
+      
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/tram-fruit2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/phalp-fruit2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/tracking/gt-fruit2.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Coomparison on the <i>"transferring fruits to the side table"</i> task. Both methods have visible errors in the hand and object tracking under such extreme camera position.
+        </font>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- image editing 2 -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Application: Authorized 2D Generation.</h2>
+      <h2> 
+          <font size="+1">
+            Generating realistic images and videos often requires data that are difficult to capture, such as different viewpoints, object manipulation, or lighting changes. HUMOTO provides rich, human-involved scene data that can simulate object addition/removal, reveal occluded areas, and capture lighting and shadow effects. We provide two sets of examples to demonstrate the capability of HUMOTO in providing information for these tasks. One on object addition/removal and the other on hand-object interaction image editing.
+          </font>
+          <br>
+          <br>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/3.png" type="images"></img>
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/2.png" type="images"></img>
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/1.png" type="images"></img>   
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/0.png" type="images"></img> 
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          (<span>&#8594;</span>) Gradually removing the object from the scene. HUMOTO dataset can provide the modeling, lighting and shadow effects in the occluded area.
+        </font>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/remy1.png" type="images"></img>
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/remy1-nolaptop.png" type="images"></img>
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/remy2.png" type="images"></img>   
+        <img width="25%" height="100%" source="" src="static/humoto/2dgen/remy2-nolaptop.png" type="images"></img> 
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          (<span>&#8594;</span>) Removing the laptop from the scene and changing camera view point. HUMOTO dataset can depict the nuanced changes in the shadow and lighting.
+        </font>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff6.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff5.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff4.png" type="images"></img>   
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff3.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff2.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/aff1.png" type="images"></img>   
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt2.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt6.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt1.png" type="images"></img>   
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt3.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt5.png" type="images"></img>
+        <img width="16.6%" height="100%" source="" src="static/humoto/2dgen/aff/gt4.png" type="images"></img>   
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Hand-object interaction image editing. Top row shows results generated by Affordance Diffusion. Bottom row shows the rendered images from HUMOTO. The model can only generate low-resolusion images with significant artifacts even on the hand structure. HUMOTO provides high-quality images with realistic hand-object interaction for this task
+        </font>
+      </h2>
+  </div>
+</div>
+</section>
+<!-- End youtube video -->
+
+
+<!-- Perceptual Evaluation  -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Perceptual Evaluation </h2>
+      <h2> 
+          <font size="+1">
+          We present videos on our perceptual evaluation of the HUMOTO dataset. We compare the quality of the HUMOTO datase with similar sequences in other datasets.
+          </font>
+      </h2>
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/carry_trash_bin_while_walking-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/carry_trash_bin_while_walking-behave.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Carry trash bin while walking.</i> Left: HUMOTO, Right: BEHAVE
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/chopping-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/chopping-parahome.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Chopping </i>. Left: HUMOTO, Right: ParaHome
+        </font>
+      </h2>
+      
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/frying_pan-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/frying_pan-imhd.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Frying pan.</i> Left: HUMOTO, Right: IMHD
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/moving_floor_lamp_to_right-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/moving_floor_lamp_to_right-omomo.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Moving floor lamp to right.</i> Left: HUMOTO, Right: OMOMO
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/working_with_laptop_and_drinking_coffee-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/working_with_laptop_and_drinking_coffee-parahome.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Working with laptop and drinking coffee.</i> Left: HUMOTO, Right: ParaHome
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/read_book-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/read_book-parahome.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Read book.</i> Left: HUMOTO, Right: ParaHome
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/carry_tray_while_walking-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="50%" height="100%" source="" src="static/humoto/perceptual_eval/carry_tray_while_walking-behave.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Carry tray while walking.</i> Left: HUMOTO, Right: BEHAVE
+        </font>
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/lift_chair_while_walking-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/lift_chair_while_walking-behave.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/lift_chair_while_walking_omomo.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Lift chair while walking.</i> Left: HUMOTO, Middle: BEHAVE, Right: OMOMO
+        </font>
+      </h2>
+
+
+      <div class="columns is-centered has-text-centered">
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/seating_on_chair-humoto.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/seating_on_chair-behave.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+        <video width="33.3%" height="100%" source="" src="static/humoto/perceptual_eval/seating_on_chair-parahome.mp4" type="video/mp4" loop="true" autoplay="autoplay" controls muted></video>
+      </div>
+      <h2 class="subtitle has-text-left">
+        <font size="+1">
+          Sequence: <i>Seating on chair.</i> Left: HUMOTO, Middle: BEHAVE, Right: ParaHome
+        </font>
+      </h2>
+      
+    </div>
+  </div>
+</section>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+  </html>
