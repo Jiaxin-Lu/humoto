@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8YQVTLEQF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y8YQVTLEQF');
+  </script>
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
@@ -43,9 +52,8 @@
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
 </head>
+
 <body>
-
-
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
@@ -72,6 +80,40 @@
             </div>
             <div class="is-size-5 publication-authors">
               <span class="author-block"><small>1. University of Texas at Austin<br>2. Adobe Research<br>* The work was mainly conducted at Adobe Research.</small></span>
+            </div>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Arxiv PDF link (Low-res) -->
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2504.10414" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>Paper</span>
+                    </a>
+                  </span>
+                <span class="link-block">
+                  <a href="https://jiaxin-lu.github.io/humoto/" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="far fa-clone"></i>
+                  </span>
+                  <span>Data (coming soon)</span>
+                  </a>
+                </span>
+
+                <!-- Github link -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/SonSang/dmesh2" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+                </span> -->
+              </div>
             </div>
           </div>
       </div>
