@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUMOTO</title>
+    <link rel="icon" href="static/humoto/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/humoto/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f0f0f0; /* Light gray background */
+            --secondary-color: #ffffff;
+            --accent-color: #ff5757; /* Reddish accent */
+            --text-color: #333333;
+            --border-color: #dddddd;
+            --header-bg: #2c2c2c; /* Dark header */
+            --header-text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', 'Noto Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--header-text);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo-image {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden; /* Crucial */
+        }
+
+        /* Left Sidebar (Search + Gallery) */
+        .sidebar {
+            width: 40%; /* <<< Controls left panel width */
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+            background-color: var(--secondary-color);
+            overflow: hidden;
+        }
+
+        /* Search and Filter Area */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #search-bar {
+           flex-grow: 1; /* Take available space */
+           padding: 8px 10px;
+           border: 1px solid var(--border-color);
+           border-radius: 4px;
+           font-size: 14px;
+        }
+        
+        /* Filter dropdown styling */
+        .filter-dropdown-container {
+            position: relative;
+        }
+        
+        .filter-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .filter-button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+            margin-top: 5px;
+        }
+        
+        .filter-dropdown.active {
+            display: block;
+        }
+        
+        .filter-section {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filter-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-option input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .filter-option label {
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            padding: 12px 15px;
+        }
+        
+        .filter-action-button {
+            flex: 1;
+            padding: 8px 0;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .clear-button {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .clear-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Animation Thumbnail Gallery */
+        .animation-gallery {
+           flex: 1; /* Take remaining vertical space in sidebar */
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 10px;
+        }
+
+        .animation-item {
+            width: calc(33.33% - 7px); /* Three columns */
+            aspect-ratio: 1/1;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .animation-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .animation-item.active {
+            border: 2px solid var(--accent-color);
+        }
+
+        .animation-item img, .animation-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .animation-item .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 6px;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 12px;
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Right Viewer Panel */
+        .animation-viewer {
+            flex: 1; /* Takes up the remaining horizontal space (40%) */
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary-color);
+            overflow: hidden;
+        }
+
+        .sequence-title {
+            padding: 10px 15px 5px 15px;
+            background-color: var(--secondary-color);
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .sequence-description {
+            padding: 0px 15px 10px 15px;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            color: #666;
+        }
+
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+         .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            z-index: 10;
+            display: none;
+        }
+
+        .controls-panel {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-button {
+            padding: 8px 15px;
+            background-color: var(--accent-color);
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .action-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .playback-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .playback-controls button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .playback-slider {
+            width: 200px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                 width: 100%; /* Sidebar takes full width */
+                 max-height: 45vh; /* Adjust height as needed */
+                 border-right: none;
+                 border-bottom: 1px solid var(--border-color);
+            }
+
+            .animation-viewer {
+                 min-height: 55vh; /* Adjust height */
+            }
+
+             /* Adjust gallery columns for potentially smaller sidebar */
+             .animation-item {
+                 width: calc(33.33% - 7px); /* Maintain 3 columns or adjust */
+             }
+
+            /* Stack search/filter on mobile if needed */
+            .search-container {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+                gap: 5px;
+            }
+            
+            .scene-filters {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Adjust for very small screens */
+        @media (max-width: 480px) {
+            .animation-item {
+                width: calc(50% - 5px); /* Two columns */
+            }
+            .logo {
+                font-size: 18px; /* Smaller logo */
+            }
+            .logo-icon {
+                width: 24px; height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-image">
+                <!-- Replace the URL below with your actual logo image URL -->
+                <img src="static/humoto/logo.png" alt="HUMOTO Logo">
+            </div>
+            <!-- <div class="logo-icon">H</div> -->
+            HUMOTO
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="search" id="search-bar" placeholder="Search animations...">
+                <div class="filter-dropdown-container">
+                    <button id="filter-button" class="filter-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Filter
+                    </button>
+                    <div id="filter-dropdown" class="filter-dropdown">
+                        <div class="filter-section">
+                            <h3>Scene</h3>
+                            <div id="scene-filters" class="filter-options">
+                                <!-- Scene filter options will be added here dynamically -->
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button id="apply-filters" class="action-button filter-action-button">Apply</button>
+                            <button id="clear-filters" class="filter-action-button clear-button">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="animation-gallery">
+                </div>
+        </div>
+        <div class="animation-viewer">
+            <div class="sequence-title" id="sequence-title">Select an animation</div>
+            <div class="sequence-description" id="sequence-description">No animation selected</div>
+            <div class="viewer-container" id="glb-viewer">
+                <div class="loading" id="loading-indicator">Loading model...</div>
+            </div>
+            <div class="controls-panel">
+                <div class="playback-controls">
+                    <button id="play-pause">▶️</button>
+                    <input type="range" class="playback-slider" min="0" max="100" value="0" step="0.01">
+                    <span id="time-display">0:00 / 0:00</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-button" id="reset-view">Reset View</button>
+                    <button class="action-button" id="download-suit">Download</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <div class="footer">
+        HUMOTO: A 4D Dataset of Mocap Human Object Interactions
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.135.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.135.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.135.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // ==========================================
+        // Animation Data (Loaded from JSON)
+        // ==========================================
+        // Make the remote JSON URL a global constant for easy updating
+        const REMOTE_JSON_URL = 'https://g3i-data.s3.us-west-2.amazonaws.com/4Danimation/humoto/data/humoto_public/animations.json';
+        
+        let animations = []; // Initialize as empty array
+        
+        // Variables to track the current animation and download path
+        let currentAnimationName = '';
+        let currentDownloadPath = '';
+
+        // ==========================================
+        // DOM References
+        // ==========================================
+        const galleryContainer = document.querySelector('.animation-gallery');
+        const sequenceTitle = document.getElementById('sequence-title');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const searchInput = document.getElementById('search-bar');
+        const sceneFilter = document.getElementById('scene-filter');
+        // Note: galleryItems is retrieved later as it's dynamically populated
+        
+        // ==========================================
+        // Function to Load and Initialize
+        // ==========================================
+        async function loadAnimationDataAndInit() {
+            try {
+                // Replace with your actual remote URL
+                const response = await fetch(REMOTE_JSON_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                animations = await response.json(); // Parse JSON
+
+                // ===== IMPORTANT: Initialization steps moved here =====
+                populateGallery(); // Create gallery items first
+                populateSceneFilters(); // Generate scene filter buttons
+                applyFilters();    // Apply default filters (optional here, or call after initViewer)
+                initViewer();      // Init the 3D scene (WITHOUT the initial model load inside)
+
+                // Load the first model *after* initViewer is done setting up the scene
+                /* if (animations.length > 0) {
+                    const firstVisibleItem = galleryContainer.querySelector('.animation-item:not([style*="display: none"])');
+                    if (firstVisibleItem) {
+                        firstVisibleItem.classList.add('active');
+                        sequenceTitle.textContent = firstVisibleItem.dataset.name;
+                        // Use the path from the loaded data
+                        loadModel(firstVisibleItem.dataset.path, firstVisibleItem.dataset.name);
+                    } else {
+                        sequenceTitle.textContent = 'No matching animations';
+                        // Handle case where filters might hide everything initially
+                        resetPlaybackControls(); // Ensure viewer is reset
+                        // Optionally clear the 3D view if desired
+                    }
+                } else {
+                    sequenceTitle.textContent = 'No animations loaded';
+                    resetPlaybackControls();
+                } */
+
+                // Add event listeners for filters AFTER elements exist and data is loaded
+                searchInput.addEventListener('input', applyFilters);
+                // =========================================================
+
+            } catch (error) {
+                console.error("Could not load animation data:", error);
+                galleryContainer.innerHTML = '<p style="color: red; padding: 10px;">Error loading animation data. Please check console.</p>';
+                // Also ensure the viewer is reset or shows an error state
+                sequenceTitle.textContent = 'Error loading data';
+                resetPlaybackControls();
+                // Clear any existing 3D model display if necessary
+                clearSceneModel(); // You might need to create this helper function
+            }
+        }
+        
+        // Helper function to clear the previously loaded model (if needed for error states)
+        function clearSceneModel() {
+            let objectsToRemove = [];
+            scene.traverse(object => {
+            if (object.userData.isLoadedModel) {
+                objectsToRemove.push(object);
+            }
+            });
+            objectsToRemove.forEach(obj => scene.remove(obj));
+            mixers = []; // Clear mixers as well
+            // Optionally reset camera controls
+        }
+
+        // ==========================================
+        // Populate Gallery
+        // ==========================================
+        function populateGallery() {
+            galleryContainer.innerHTML = ''; // Clear existing items if any
+            animations.forEach(animation => {
+                const item = document.createElement('div');
+                item.className = 'animation-item';
+                item.dataset.id = animation.id;
+                item.dataset.path = animation.glbPath;
+                item.dataset.name = animation.name;
+                item.dataset.scene = animation.scene; // Store scene data
+                item.dataset.script = animation.short_script || "No description available"; // Store short_script
+                item.dataset.download = animation.download || ""; // Store download path
+                
+                // Handle thumbnail path for remote hosting
+                let thumbnailUrl = animation.thumbnail;
+                
+                // If it's a relative path, convert it to an absolute URL based on the remote JSON source
+                if (animation.thumbnail.startsWith('./') || 
+                    animation.thumbnail.startsWith('../') || 
+                    !animation.thumbnail.startsWith('http')) {
+                    // Get the base URL of the remote JSON
+                    const baseUrl = new URL('./', REMOTE_JSON_URL).href;
+                    
+                    // Create absolute URL by resolving relative path against base URL
+                    thumbnailUrl = new URL(animation.thumbnail, baseUrl).href;
+                }
+                
+                item.innerHTML = `
+                    <img src="${thumbnailUrl}" alt="${animation.name}">
+                    <div class="title">${animation.name} (${animation.scene})</div>
+                `;
+
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.animation-item.active').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    item.classList.add('active');
+                    sequenceTitle.textContent = animation.name;
+                    document.getElementById('sequence-description').textContent = animation.short_script || "No description available";
+                    
+                    // Update current animation info for download button
+                    currentAnimationName = animation.name;
+                    currentDownloadPath = animation.download || "";
+                    
+                    // Enable/disable download button based on availability
+                    const downloadButton = document.getElementById('download-suit');
+                    if (currentDownloadPath) {
+                        downloadButton.disabled = false;
+                        downloadButton.title = `Download ${currentAnimationName}`;
+                    } else {
+                        downloadButton.disabled = true;
+                        downloadButton.title = "No suit available for download";
+                    }
+                    
+                    loadModel(animation.glbPath, animation.name);
+                });
+                galleryContainer.appendChild(item);
+            });
+        }
+
+        // ==========================================
+        // Filtering Logic
+        // ==========================================
+        let activeFilters = {
+            scenes: new Set()
+        };
+        
+        function populateSceneFilters() {
+            const sceneFiltersContainer = document.getElementById('scene-filters');
+            
+            // Clear existing filters
+            sceneFiltersContainer.innerHTML = '';
+            
+            // Track unique scenes
+            const uniqueScenes = new Set();
+            
+            // Collect all scene names from the animations
+            animations.forEach(animation => {
+                if (animation.scene) {
+                    uniqueScenes.add(animation.scene);
+                }
+            });
+            
+            // Convert to array and sort alphabetically
+            const sortedScenes = Array.from(uniqueScenes).sort();
+            
+            // Create a checkbox for each unique scene
+            sortedScenes.forEach(scene => {
+                const filterOption = document.createElement('div');
+                filterOption.className = 'filter-option';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `scene-${scene.replace(/\s+/g, '-').toLowerCase()}`;
+                checkbox.dataset.scene = scene;
+                
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = scene;
+                
+                filterOption.appendChild(checkbox);
+                filterOption.appendChild(label);
+                sceneFiltersContainer.appendChild(filterOption);
+            });
+            
+            // Set up filter dropdown toggle
+            const filterButton = document.getElementById('filter-button');
+            const filterDropdown = document.getElementById('filter-dropdown');
+            
+            filterButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                filterDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!filterDropdown.contains(e.target) && e.target !== filterButton) {
+                    filterDropdown.classList.remove('active');
+                }
+            });
+            
+            // Apply filters button
+            document.getElementById('apply-filters').addEventListener('click', function() {
+                activeFilters.scenes = new Set();
+                
+                // Collect selected scenes
+                document.querySelectorAll('#scene-filters input:checked').forEach(checkbox => {
+                    activeFilters.scenes.add(checkbox.dataset.scene);
+                });
+                
+                applyFilters();
+                filterDropdown.classList.remove('active');
+                
+                // Update filter button text to show count of active filters
+                updateFilterButtonText();
+            });
+            
+            // Clear filters button
+            document.getElementById('clear-filters').addEventListener('click', function() {
+                // Uncheck all checkboxes
+                document.querySelectorAll('#scene-filters input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                activeFilters.scenes = new Set();
+                
+                // Don't auto-apply filters here - user needs to click Apply
+                updateFilterButtonText();
+            });
+        }
+        
+        function updateFilterButtonText() {
+            const filterButton = document.getElementById('filter-button');
+            const totalFilters = activeFilters.scenes.size;
+            
+            if (totalFilters > 0) {
+                filterButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    Filter (${totalFilters})
+                `;
+            } else {
+                filterButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    Filter
+                `;
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const galleryItems = galleryContainer.getElementsByClassName('animation-item');
+            
+            Array.from(galleryItems).forEach(item => {
+                const itemName = item.dataset.name.toLowerCase();
+                const itemScene = item.dataset.scene;
+
+                const nameMatch = itemName.includes(searchTerm);
+                
+                // Scene match: if no scenes are selected, show all scenes
+                // Otherwise, item must match one of the selected scenes
+                const sceneMatch = activeFilters.scenes.size === 0 || 
+                                   activeFilters.scenes.has(itemScene);
+
+                if (nameMatch && sceneMatch) {
+                    item.style.display = ''; // Show
+                } else {
+                    item.style.display = 'none'; // Hide
+                }
+            });
+        }
+
+        // ==========================================
+        // Three.js Viewer Setup
+        // ==========================================
+        let scene, camera, renderer, controls, clock;
+        let mixers = [];
+        let isPlaying = false;
+        let currentAnimationDuration = 0;
+        
+        // Store the initial camera position and target
+        let initialCameraPosition = { x: 0, y: 1.5, z: 5 };
+        let initialControlsTarget = { x: 0, y: 1, z: 0 };
+
+        function initViewer() {
+            const container = document.getElementById('glb-viewer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0);
+
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+            camera.position.set(initialCameraPosition.x, initialCameraPosition.y, initialCameraPosition.z); // Initial position
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(width, height);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 10, 5);
+            scene.add(directionalLight);
+
+            const grid = new THREE.GridHelper(10, 10, 0x888888, 0xdddddd);
+            scene.add(grid);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.target.set(initialControlsTarget.x, initialControlsTarget.y, initialControlsTarget.z); // Default target
+            controls.update();
+
+            clock = new THREE.Clock();
+
+            window.addEventListener('resize', onWindowResize);
+            animate();
+
+            // Load first model if available
+            if (animations.length > 0) {
+                // Find the first *visible* item after initial filtering
+                const firstVisibleItem = galleryContainer.querySelector('.animation-item:not([style*="display: none"])');
+                if (firstVisibleItem) {
+                     firstVisibleItem.classList.add('active');
+                     const name = firstVisibleItem.dataset.name;
+                     const script = firstVisibleItem.dataset.script;
+                     const downloadPath = firstVisibleItem.dataset.download;
+                     
+                     sequenceTitle.textContent = name;
+                     document.getElementById('sequence-description').textContent = script;
+                     
+                     // Update current animation info for download button
+                     currentAnimationName = name;
+                     currentDownloadPath = downloadPath || "";
+                     
+                     // Enable/disable download button based on availability
+                     const downloadButton = document.getElementById('download-suit');
+                     if (currentDownloadPath) {
+                         downloadButton.disabled = false;
+                         downloadButton.title = `Download suit for ${currentAnimationName}`;
+                     } else {
+                         downloadButton.disabled = true;
+                         downloadButton.title = "No suit available for download";
+                     }
+                     
+                     loadModel(firstVisibleItem.dataset.path, name);
+                } else {
+                    sequenceTitle.textContent = 'No matching animations';
+                    document.getElementById('sequence-description').textContent = 'No animation selected';
+                    
+                    // Disable download button when no animation is selected
+                    const downloadButton = document.getElementById('download-suit');
+                    downloadButton.disabled = true;
+                    downloadButton.title = "No animation selected";
+                    
+                    currentAnimationName = '';
+                    currentDownloadPath = '';
+                }
+            }
+        }
+
+        function onWindowResize() {
+            const container = document.getElementById('glb-viewer');
+            if (!container) return;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        function loadModel(path, name) {
+            loadingIndicator.style.display = 'block';
+            loadingIndicator.textContent = 'Loading model...';
+
+            // Clear previous model and animations
+            let objectsToRemove = [];
+             scene.traverse(object => {
+                if (object.userData.isLoadedModel) {
+                    objectsToRemove.push(object);
+                }
+             });
+             objectsToRemove.forEach(obj => scene.remove(obj));
+
+             // Dispose geometry/material if needed (more advanced cleanup)
+
+             mixers = [];
+             currentAnimationDuration = 0;
+             resetPlaybackControls();
+
+            // Handle paths for remote hosting
+            let modelUrl = path;
+            
+            // If it's a relative path, convert it to an absolute URL based on the remote JSON source
+            if (path.startsWith('./') || path.startsWith('../') || !path.startsWith('http')) {
+                // Get the base URL of the remote JSON
+                const baseUrl = new URL('./', REMOTE_JSON_URL).href;
+                
+                // Create absolute URL by resolving relative path against base URL
+                modelUrl = new URL(path, baseUrl).href;
+            }
+
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                modelUrl,
+                (gltf) => { // Success
+                    const model = gltf.scene;
+                    scene.add(model);
+                    model.userData.isLoadedModel = true; // Mark the root
+                    model.userData.initialView = {
+                        modelCenterX: 0,
+                        modelCenterY: 0,
+                        modelCenterZ: 0,
+                        modelMaxDim: 0
+                    };
+
+                    // Mark all children as part of the loaded model
+                    model.traverse(child => {
+                        child.userData.isLoadedModel = true;
+                    });
+
+                    // Center and frame the model
+                    const box = new THREE.Box3().setFromObject(model);
+                    const size = box.getSize(new THREE.Vector3());
+                    const center = box.getCenter(new THREE.Vector3());
+
+                    model.position.x += (model.position.x - center.x);
+                    model.position.y = - box.min.y
+                    // model.position.y += (model.position.y - center.y); // Adjust based on desired ground plane
+                    model.position.z += (model.position.z - center.z);
+
+                    const maxDim = Math.max(size.x, size.y, size.z);
+
+                    // Store these values for Reset View
+                    model.userData.initialView = {
+                        modelCenterX: center.x,
+                        modelCenterY: center.y,
+                        modelCenterZ: center.z,
+                        modelMaxDim: maxDim,
+                        size: size
+                    };
+
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                    cameraZ *= 3; // Add some distance
+
+                    // Adjust camera position and target
+                    camera.position.set(center.x, center.y + size.y, center.z + cameraZ); // Look slightly down
+                    // controls.target.copy(center); // Target the center
+                    controls.target.set(center.x, size.y / 2, center.z);
+                    controls.update();
+
+
+                    // Handle animations
+                    if (gltf.animations && gltf.animations.length) {
+                        // Use a single mixer for the whole scene for simplicity here
+                        const mixer = new THREE.AnimationMixer(model);
+                        mixers.push(mixer); // Add to our array
+                        currentAnimationDuration = 0; // Reset duration
+
+                        gltf.animations.forEach(clip => {
+                            const action = mixer.clipAction(clip);
+                            action.play();
+                             if (clip.duration > currentAnimationDuration) {
+                                currentAnimationDuration = clip.duration;
+                            }
+                        });
+
+                        // Setup playback controls
+                        if (currentAnimationDuration > 0) {
+                            document.querySelector('.playback-slider').max = currentAnimationDuration;
+                            document.querySelector('.playback-slider').value = 0;
+                            updateTimeDisplay(0, currentAnimationDuration);
+                            isPlaying = true;
+                            document.getElementById('play-pause').textContent = '⏸️';
+                            mixers.forEach(m => m.timeScale = 1);
+                        } else {
+                             resetPlaybackControls();
+                        }
+                    } else {
+                        resetPlaybackControls();
+                    }
+
+                    loadingIndicator.style.display = 'none';
+                },
+                (xhr) => { // Progress
+                     if (xhr.lengthComputable) {
+                        const percentComplete = xhr.loaded / xhr.total * 100;
+                        loadingIndicator.textContent = `Loading: ${Math.round(percentComplete)}%`;
+                    }
+                },
+                (error) => { // Error
+                    console.error('Error loading model:', error);
+                    loadingIndicator.textContent = `Error loading: ${error.message || 'Unknown error'}`;
+                    // Keep indicator visible or hide after delay
+                    // setTimeout(() => { loadingIndicator.style.display = 'none'; }, 3000);
+                }
+            );
+        }
+
+        function resetPlaybackControls() {
+             document.querySelector('.playback-slider').max = 100;
+             document.querySelector('.playback-slider').value = 0;
+             updateTimeDisplay(0, 0);
+             isPlaying = false;
+             document.getElementById('play-pause').textContent = '▶️';
+             mixers.forEach(m => m.timeScale = 0); // Stop animation if running
+        }
+
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            if (isPlaying && mixers.length > 0 && currentAnimationDuration > 0) {
+                 // Update all mixers
+                mixers.forEach(mixer => mixer.update(delta));
+
+                // Update slider based on the first mixer's time
+                const time = mixers[0].time % currentAnimationDuration;
+                document.querySelector('.playback-slider').value = time;
+                updateTimeDisplay(time, currentAnimationDuration);
+
+                 // Loop animation (optional, Three.js AnimationAction loops by default)
+                 // if (mixers[0].time >= currentAnimationDuration) {
+                 //     mixers.forEach(mixer => mixer.setTime(0));
+                 // }
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // ==========================================
+        // Helper Functions & UI Controls
+        // ==========================================
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+            const hund = Math.floor((seconds - Math.floor(seconds)) * 100).toString().padStart(2, '0'); // Optional hundredths
+            return `${mins}:${secs}`; // Simplified without hundredths
+            // return `${mins}:${secs}.${hund}`;
+        }
+
+        function updateTimeDisplay(currentTime, totalTime) {
+            document.getElementById('time-display').textContent =
+                `${formatTime(currentTime)} / ${formatTime(totalTime)}`;
+        }
+        
+        // Download function for suits
+        function downloadSuit(path, animationName) {
+            if (!path) return;
+            
+            // Handle remote URLs
+            let downloadUrl = path;
+            
+            // If it's a relative path, convert it to an absolute URL based on the remote JSON source
+            if (path.startsWith('./') || path.startsWith('../') || !path.startsWith('http')) {
+                // Get the base URL of the remote JSON
+                const remoteJsonUrl = 'https://example.com/path/to/animations.json';
+                const baseUrl = new URL('./', remoteJsonUrl).href;
+                
+                // Create absolute URL by resolving relative path against base URL
+                downloadUrl = new URL(path, baseUrl).href;
+            }
+            
+            // Create a temporary anchor element to trigger the download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `${animationName.replace(/\s+/g, '_')}_suit.zip`; // Default filename
+            
+            // Append to body, click, and remove
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+        // Play/Pause Button
+        document.getElementById('play-pause').addEventListener('click', function() {
+            if (!mixers.length || currentAnimationDuration === 0) return; // Don't toggle if no animation
+            isPlaying = !isPlaying;
+            this.textContent = isPlaying ? '⏸️' : '▶️';
+            mixers.forEach(mixer => {
+                mixer.timeScale = isPlaying ? 1 : 0;
+            });
+            if(isPlaying) clock.getDelta(); // Prevent large jump after pause
+        });
+
+        // Reset View Button
+        document.getElementById('reset-view').addEventListener('click', function() {
+            let modelRoot = null;
+            scene.traverse(object => {
+                if (object.userData.isLoadedModel && !object.parent?.userData.isLoadedModel) {
+                    modelRoot = object; // Find the root object we added
+                }
+             });
+
+             if (modelRoot && modelRoot.userData.initialView) {
+                 // Get the cached values from when the model was loaded
+                 const center = {
+                     x: modelRoot.userData.initialView.modelCenterX,
+                     y: modelRoot.userData.initialView.modelCenterY,
+                     z: modelRoot.userData.initialView.modelCenterZ
+                 };
+                 const size = modelRoot.userData.initialView.size;
+                 const maxDim = modelRoot.userData.initialView.modelMaxDim;
+                 
+                 // Calculate the exact same camera position as in loadModel
+                 const fov = camera.fov * (Math.PI / 180);
+                 let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                 cameraZ *= 3; // Same zoom factor used in loadModel
+                 
+                 // Set camera to exactly the same position as when model was loaded
+                 camera.position.set(center.x, center.y + size.y, center.z + cameraZ);
+                 controls.target.set(center.x, size.y / 2, center.z);
+                 controls.update();
+             } else {
+                 // If no model is loaded or we don't have cached values, reset to initial default view
+                 camera.position.set(initialCameraPosition.x, initialCameraPosition.y, initialCameraPosition.z);
+                 controls.target.set(initialControlsTarget.x, initialControlsTarget.y, initialControlsTarget.z);
+                 controls.update();
+             }
+        });
+
+        // Slider Control
+        document.querySelector('.playback-slider').addEventListener('input', function() {
+            if (mixers.length > 0) {
+                const time = parseFloat(this.value);
+                 // No need to pause/resume, just set the time
+                 mixers.forEach(mixer => {
+                    mixer.setTime(time);
+                 });
+                 updateTimeDisplay(time, currentAnimationDuration);
+                 if(!isPlaying) clock.getDelta(); // Update clock if paused
+            }
+        });
+
+        // ==========================================
+        // Initial Setup on Load
+        // ==========================================
+        window.addEventListener('load', () => {
+            loadAnimationDataAndInit(); // Load data and initialize
+            
+            // Add event listener for download button
+            document.getElementById('download-suit').addEventListener('click', function() {
+                if (currentDownloadPath) {
+                    downloadSuit(currentDownloadPath, currentAnimationName);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
