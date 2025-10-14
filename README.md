@@ -96,7 +96,10 @@ bash clear_human_scale.sh -d <path_to_humoto_0805> -o <path_to_a_new_scale_clear
 Converts the human model to a different character or bone layout. The `up_bone` version is recommended if you want to use the dataset for machine learning tasks.
 
 ```bash
-bash transfer_human_model.sh -d <path_to_scale_cleared_humoto_0805> -m ../human_model/human_model_without_texture_up_bone.fbx -o <path_to_a_new_up_bone_humoto_folder>
+bash transfer_human_model.sh \
+  -d <path_to_scale_cleared_humoto_0805> \
+  -m ../human_model/human_model_without_texture_up_bone.fbx \
+  -o <path_to_a_new_up_bone_humoto_folder>
 ```
 
 **Note:** This script also converts between different character models (e.g., `without_texture` to `Remy`) and bone layouts (e.g., `mixamo_bone` to `up_bone`). It only works between models with identical bone lengths and rest positions; using it with incompatible models will corrupt the animation data.
