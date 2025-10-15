@@ -169,13 +169,12 @@ This example demonstrates how to handle different coordinate systems and data fo
 
 If you use this code or dataset in your research, please cite:
 ```
-@misc{lu2025humoto4ddatasetmocap,
-      title={HUMOTO: A 4D Dataset of Mocap Human Object Interactions}, 
-      author={Jiaxin Lu and Chun-Hao Paul Huang and Uttaran Bhattacharya and Qixing Huang and Yi Zhou},
-      year={2025},
-      eprint={2504.10414},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2504.10414}, 
+@InProceedings{Lu_2025_HUMOTO,
+    author    = {Lu, Jiaxin and Huang, Chun-Hao Paul and Bhattacharya, Uttaran and Huang, Qixing and Zhou, Yi},
+    title     = {HUMOTO: A 4D Dataset of Mocap Human Object Interactions},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025},
+    pages     = {10886-10897}
 }
 ```

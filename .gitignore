@@ -21,3 +21,6 @@ ENV/
 env.bak/
 venv.bak/
 
+.DS_Store
+test/
+static/
